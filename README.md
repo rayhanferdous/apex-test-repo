@@ -21,6 +21,11 @@ Before starting, ensure you have the following installed:
 - git clone https://github.com/rayhanferdous/apex-test-repo.git
   cd apex-test-repo
 
+1. **Run Composer Install command**
+
+- composer install
+
+
 ## Import Sql Database
 
 ## Setup .env file
