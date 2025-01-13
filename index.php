@@ -1,3 +1,16 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\Models\Product;
+
+$productModel = new Product();
+$products = $productModel->getAllProducts();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,19 +36,42 @@
             <h2>Apex Test Repo - Products Page</h2>
             <a href="./pages/product/create_product.php">Create Product</a>
         </div>
+
         <table class="page-table">
             <tr>
                 <th>Id</th>
                 <th>Product Name</th>
-                <th>Product category</th>
+                <th>Product Category</th>
                 <th>Dynamic Options</th>
+                <th>Actions</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>johndoe@gmail.com</td>
-                <td>johndoe@gmail.com</td>
-            </tr>
+
+            <?php
+
+            foreach ($products as $product) {
+            ?>
+                <tr>
+                    <td><?php echo $product['id']; ?></td>
+                    <td><?php echo $product['name']; ?></td>
+                    <td><?php echo $product['category']; ?></td>
+                    <td>
+                        <?php
+
+                        $options = json_decode($product['options'], true);
+                        if ($options) {
+                            foreach ($options as $option) {
+                                echo $option['option_name'] . " - " . '<img width="100px" src="' . '.' . $option['image_path'] . '" alt="Option Image" />' . " - " . 'Price -' . $option['price'] . "<br>";
+                            }
+                        } else {
+                            echo "No options available";
+                        }
+                        ?>
+                    </td>
+                </tr>
+            <?php
+            }
+            ?>
+            <tr></tr>
         </table>
     </main>
 </body>

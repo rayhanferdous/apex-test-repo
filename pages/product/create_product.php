@@ -1,3 +1,17 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Controllers\ProductController;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $productController = new ProductController();
+    $productController->store();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +39,7 @@
         <!-- Products create page content goes here -->
         <div class="create-product">
             <h3>Add Product</h3>
-            <form id="product-form" action="save_product.php" method="POST" enctype="multipart/form-data">
+            <form id="product-form" action="<?php ?>" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="product_name">Product Name:</label>
                     <input type="text" name="product_name" id="product_name" required>
