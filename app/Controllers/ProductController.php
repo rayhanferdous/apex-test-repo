@@ -52,6 +52,11 @@ class ProductController
         $product = new Product();
         $productId = $product->saveProduct($name, $category, $processedOptions);
 
-        return $productId;
+        if ($productId) {
+            header("Location: ../../index.php");
+            exit();
+        } else {
+            echo "Error occurred while saving the product.";
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Cart;
 
-class ProductController
+class CartController
 {
     public function index()
     {
@@ -20,6 +20,26 @@ class ProductController
         $cart = new Cart();
         $cartId = $cart->saveCart($productID);
 
-        return $cartId;
+        if ($cartId) {
+            header("Location: ./pages/cart.php");
+            exit();
+        } else {
+            echo "Error occurred while saving the product.";
+        }
+    }
+
+    public function delete()
+    {
+        $cartId = $_POST['cart_id'];
+
+        $cart = new Cart();
+        $cartId = $cart->deleteCart($cartId);
+
+        if ($cartId) {
+            header("Location: ./../index.php");
+            exit();
+        } else {
+            echo "Error occurred while saving the product.";
+        }
     }
 }

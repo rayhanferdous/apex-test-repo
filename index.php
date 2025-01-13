@@ -6,9 +6,14 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Models\Product;
+use App\Controllers\CartController;
 
 $productModel = new Product();
 $products = $productModel->getAllProducts();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $cartController = new CartController();
+    $cartController->store();
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +31,6 @@ $products = $productModel->getAllProducts();
         <nav>
             <ul>
                 <li style="background-color: gray;"><a href="./index.php">Home</a></li>
-                <li><a href="./pages/products.php">Products</a></li>
                 <li><a href="./pages/cart.php">Cart</a></li>
             </ul>
         </nav>
@@ -67,11 +71,16 @@ $products = $productModel->getAllProducts();
                         }
                         ?>
                     </td>
+                    <td>
+                        <form action="" method="POST">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <input type="submit" value="Add to Cart">
+                        </form>
+                    </td>
                 </tr>
             <?php
             }
             ?>
-            <tr></tr>
         </table>
     </main>
 </body>
