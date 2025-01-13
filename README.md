@@ -21,7 +21,11 @@ Before starting, ensure you have the following installed:
 - git clone https://github.com/rayhanferdous/apex-test-repo.git
   cd apex-test-repo
 
-1. **Run Composer Install command**
+2. **Add public folder on the root directory**
+
+- public/uploads
+
+3. **Run Composer Install command**
 
 - composer install
 
